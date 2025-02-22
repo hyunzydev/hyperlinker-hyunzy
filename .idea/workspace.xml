@@ -5,10 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6fe455f1-8bec-4d5f-88a1-2799ea0bb480" name="변경" comment="">
+      <change afterPath="$PROJECT_DIR$/core/static/images/019E2312-DD9A-445B-9FCF-3A8B6EF6BCBB.jpeg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/static/css/custom.css" beforeDir="false" afterPath="$PROJECT_DIR$/core/static/css/custom.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/core/templates/base.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +48,7 @@
     "RunOnceActivity.git.unshallow": "true",
     "django.template.preview.state": "SHOW_EDITOR_AND_PREVIEW",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/hyunjikang/hyperlinker-hyunzy",
+    "last_opened_file_path": "/Users/hyunjikang/hyperlinker-hyunzy/core/static/images",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -59,6 +58,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/core/static/images" />
+    </key>
+  </component>
   <component name="RunManager" selected="Django 서버.hyperlinker-hyunzy">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="hyperlinker-hyunzy" />
@@ -130,7 +134,7 @@
       <workItem from="1740235558970" duration="433000" />
       <workItem from="1740236212010" duration="2592000" />
       <workItem from="1740238951463" duration="320000" />
-      <workItem from="1740239274514" duration="21282000" />
+      <workItem from="1740239274514" duration="22130000" />
     </task>
     <servers />
   </component>
