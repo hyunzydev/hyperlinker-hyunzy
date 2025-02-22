@@ -6,70 +6,14 @@
     <meta charset="UTF-8">
     <title>Link List</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
     <meta name="csrf-token" content="{{ csrf_token }}">
     {% if user.is_authenticated %}
         <meta name="api-token" content="{{ user.auth_token.key }}">
     {% endif %}
 </head>
-<style>
-.container-fluid {
-    margin-top: -2px !important;
-    padding-bottom: 10px;
-	width: 100vw;
-	padding-left: 0 !important;
-	padding-right: 0 !important;
-}
-
-#categoryTabs .nav-link {
-    color: #76777c;
-}
-
-#categoryTabs .nav-link.active {
-    color: #000;
-    font-weight: bold;
-}
-
-#weblink-list a {
-    color: #865d6c !important;
-	{#color: #58b26d !important;
-    text-decoration: none;
-}
-
-#weblink-list a:hover {
-    color: #336677 !important;
-    text-decoration: underline;
-	font-weight: bold;
-}
-
-.btn-edit {
-    background-color: #f80077 !important;
-    color: white !important;
-    border: none;
-}
-.btn-edit:hover {
-    background-color: #e5b7bb !important;
-}
-
-
-.btn-delete {
-    background-color: #f80077 !important;
-    color: white !important;
-    border: none;
-}
-.btn-delete:hover {
-    background-color: #e5b7bb !important;
-}
-
-.btn-add {
-    background-color: #f80077 !important;
-    color: white !important;
-    border: none;
-}
-.btn-add:hover {
-    background-color: #e5b7bb !important;
-}
-</style>
 
 
 <body class="container-fluid mt-5">
@@ -191,8 +135,8 @@ document.addEventListener("DOMContentLoaded", function() {
             li.className = "list-group-item";
             li.innerHTML = `
                 <strong>${link.name}</strong> - <a href="${link.url}" target="_blank">${link.url}</a> (${link.category})
-<a href="{% url 'accounts:profile' %}" class="btn btn-pro mb-3">🏠 공유 설정 내 프로필 페이지 이동</a>
-<button class="btn btn btn-edit btn-sm edit-btn" data-id="${link.id}" data-name="${link.name}" data-url="${link.url}" data-category="${link.category}">📝 수정</button>
+<a href="{% url 'accounts:profile' %}" class="btn btn-pro mb-3">🏠  공유 관리</a>
+<button class="btn btn-edit btn-sm edit-btn" data-id="${link.id}" data-name="${link.name}" data-url="${link.url}" data-category="${link.category}">📝 수정</button>
                 <button class="btn btn-delete btn-sm delete-btn" data-id="${link.id}">삭제</button>`;
             listContainer.appendChild(li);
         });
