@@ -18,11 +18,11 @@
 <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
 
 <header class="header-container p-3 bg-dark text-white shadow-md">
-    <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-	            <img src="{% static 'images/home-3-fill.svg' %}" alt="Home">
-	            Django
+    <div class="container" id="header-left">
+        <div id="header-left">
+            <a href="/" class="d-flex align-items-center">
+                <img src="{% static 'images/home-3-fill.svg' %}" alt="Home" style="height: 24px;">
+                <span class="fw-bold text-white">hyperLinker</span>
             </a>
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
@@ -33,13 +33,13 @@
 			    <input type="search"
 				       id="searchInput"
 				       class="form-control form-control-dark text-bg-dark"
-				       placeholder="이름, 링크 또는 카테고리를 검색하세요..."
+				       placeholder="🔍 링크 검색어를 입력하세요..."
 				       aria-label="Search">
 			</form>
 
 
 
-<div class="text-end">
+<div class="text-end" id="header-right">
     {% if not request.user.is_authenticated %}
         <div class="btn-group">
             <a href="{% url 'accounts:login' %}" class="btn btn-outline-light me-2">로그인</a>
