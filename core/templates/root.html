@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load component_tags %}
+
+{% block content %}
+
+{#<a href="{% url 'weblinks:list' %}" class="btn btn-primary">#}
+{#    📂 즐겨찾기 링크 보기#}
+{#</a>#}
+
+
+{% include "weblinks/weblink_list.html" %}
+    {# {% component "modal-form" %}{% endcomponent %} #}
+{% endblock %}

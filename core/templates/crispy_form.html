@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+
+{# 첫 번째 인자로, 폼 인스턴스 #}
+{# 두 번째 인자로, 폼 헬퍼 인스턴스 #}
+{# 천 번째 인자에 인자가 있다면 두 번째 인자를 지정하지 않아도 된다.#}
+
+{% block content %}
+    {% include "_crispy_form.html" with form=form form_title=form_title %}
+{% endblock %}
+
+

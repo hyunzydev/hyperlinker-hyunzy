@@ -1,0 +1,36 @@
+{% extends "accounts/base.html" %}
+
+{% block content %}
+<form method="POST" action="{% url 'accounts:login' %}">
+	<h2>로그인</h2>
+    {% csrf_token %}
+    <label for="username">아이디:</label>
+    <input type="text" id="username" name="username" required>
+
+    <label for="password">비밀번호:</label>
+    <input type="password" id="password" name="password" required>
+
+    <button type="submit">로그인</button>
+</form>
+{% endblock %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const accessToken = getCookie("access_token");
+        if (accessToken) {
+            localStorage.setItem("access_token", accessToken);
+        }
+    });
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            document.cookie.split(';').forEach(cookie => {
+                let [key, value] = cookie.trim().split('=');
+                if (key === name) {
+                    cookieValue = decodeURIComponent(value);
+                }
+            });
+        }
+        return cookieValue;
+    }
+</script>

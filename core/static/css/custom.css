@@ -1,0 +1,131 @@
+/* DRF Browsable API의 기본 버튼 스타일 변경 */
+/* static/css/custom.css */
+/* 입력 폼 스타일 변경 */
+input[type="text"], input[type="url"], select {
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    padding: 8px;
+    width: 100%;
+}
+
+/* 테이블 스타일 개선 */
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+/* 🔹 모든 버튼의 높이를 동일하게 설정 */
+/* 🔹 공통 버튼 스타일 - 모든 버튼의 높이를 동일하게 설정 */
+.btn {
+    height: 40px !important; /* 버튼 높이 통일 */
+    padding: 10px 16px; /* 내부 여백 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px !important; /* 둥글게 설정 */
+    transition: all 0.3s ease-in-out;
+}
+
+/* 🔹 로그인 버튼 (테두리 스타일) */
+.btn-outline-light {
+    border: 2px solid #f80077 !important;
+    color: #f80077 !important;
+    background-color: transparent !important;
+}
+
+.btn-outline-light:hover {
+    background-color: #f80077 !important;
+    color: white !important;
+    border-color: #d10063 !important;
+    box-shadow: 0 4px 10px rgba(248, 0, 119, 0.3);
+}
+
+/* 🔸 회원가입 버튼 (배경 스타일) */
+.btn-warning {
+    background-color: #f80077 !important;
+    border-color: #d10063 !important;
+    color: white !important;
+}
+
+.btn-warning:hover {
+    background-color: #e0006e !important;
+    border-color: #f80077 !important;
+    box-shadow: 0 4px 12px rgba(248, 0, 119, 0.4);
+}
+
+/* 🔹 구글 로그인 버튼 */
+.btn-google {
+    background-color: #f80077 !important;
+    color: white !important;
+    border: none !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(248, 0, 119, 0.3);
+}
+
+.btn-google img {
+    width: 20px;
+    height: 20px;
+    margin-right: 2px;
+    margin-bottom: 2px;
+}
+
+/* 🔸 Hover 효과 */
+.btn-google:hover {
+    background-color: #e0006e !important;
+    box-shadow: 0 6px 12px rgba(248, 0, 119, 0.4);
+}
+
+/* 🔹 클릭 시 효과 */
+.btn-google:active {
+    background-color: #d10063 !important;
+    box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* 🔹 버튼 그룹 정리 */
+.btn-group {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* 버튼 사이 간격 */
+}
+
+/* 🔹 헤더 컨테이너 정리 */
+.header-container {
+    display: flex;
+    align-items: center; /* 수직 중앙 정렬 */
+    justify-content: space-between; /* 좌우 여백을 자동으로 조정 */
+    white-space: nowrap; /* 텍스트가 줄 바꿈되지 않도록 설정 */
+}
+
+/* 🔹 장고 아이콘과 글자 간격 */
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 3px; /* 아이콘과 글자 간격 설정 */
+}
+
+
+/* 🔸 회원가입 버튼 (배경 스타일) */
+.btn-warning {
+    background-color: #f80077 !important;
+    border-color: #d10063 !important;
+    color: white !important;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-warning:hover {
+    background-color: #e0006e !important;
+    border-color: #f80077 !important;
+    color: white !important;
+    box-shadow: 0 4px 12px rgba(248, 0, 119, 0.4);
+}
+
+

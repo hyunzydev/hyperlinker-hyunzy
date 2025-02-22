@@ -1,0 +1,2 @@
+# 배포용 목록
+-r requirements/prod.txt

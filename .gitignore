@@ -1,0 +1,12 @@
+.idea
+.env*
+venv
+db.sqlite3
+__pycache__
+staticfiles
+mediafiles
+.DS_Store
+.python-version
+draft_models.py
+echo ".env" >> .gitignore
+git rm --cached .env
