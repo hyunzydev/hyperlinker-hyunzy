@@ -1,60 +1,38 @@
-
 from django.contrib.auth import get_user_model
-from django.shortcuts import get_object_or_404, render
-from rest_framework import viewsets, permissions, status
-from rest_framework.decorators import action, api_view, permission_classes
-from rest_framework.response import Response
+from django.shortcuts import get_object_or_404, render, redirect
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from .models import WebLink
+from django.db import transaction
+from rest_framework import viewsets, permissions, status
+from rest_framework.decorators import api_view, permission_classes, action
+from rest_framework.response import Response
+from weblinks.models import WebLink
 from .serializers import WebLinkSerializer, UserSerializer
 from .permissions import IsOwnerOrHasWritePermission
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
-from rest_framework import status
-from weblinks.models import WebLink
 import json
-from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
-from django.views.decorators.csrf import csrf_exempt
-import json
-from weblinks.models import WebLink
-from django.contrib.auth import get_user_model
-
-
 
 User = get_user_model()
 
 
 class WebLinkViewSet(viewsets.ModelViewSet):
 
-
     serializer_class = WebLinkSerializer
-    permission_classes = [
-        permissions.IsAuthenticated,
-        IsOwnerOrHasWritePermission,
-    ]
+    permission_classes = [permissions.IsAuthenticated, IsOwnerOrHasWritePermission]
 
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)
 
     def get_queryset(self):
         user = self.request.user
-        return WebLink.objects.filter(created_by=user) | WebLink.objects.filter(
-            shared_with=user
-        )
+        return WebLink.objects.filter(Q(created_by=user) | Q(shared_with=user)).distinct()
 
     def partial_update(self, request, pk=None):
         web_link = get_object_or_404(WebLink, id=pk)
 
-        if (
-            web_link.created_by != request.user
-            and request.user not in web_link.write_permissions.all()
-        ):
-            return Response(
-                {"error": "수정 권한이 없습니다."}, status=status.HTTP_403_FORBIDDEN
-            )
+        if web_link.created_by != request.user and not web_link.write_permissions.filter(id=request.user.id).exists():
+            return Response({"error": "수정 권한이 없습니다."}, status=status.HTTP_403_FORBIDDEN)
 
         serializer = self.get_serializer(web_link, data=request.data, partial=True)
         if serializer.is_valid():
@@ -68,18 +46,17 @@ class WebLinkViewSet(viewsets.ModelViewSet):
         web_link = self.get_object()
 
         if web_link.created_by != request.user:
-            return Response(
-                {"error": "공유할 권한이 없습니다."}, status=status.HTTP_403_FORBIDDEN
-            )
+            return Response({"error": "공유할 권한이 없습니다."}, status=status.HTTP_403_FORBIDDEN)
 
         user_ids = request.data.get("users", [])
         write_permission = request.data.get("write", False)
 
-        users = User.objects.filter(id__in=user_ids)
-        web_link.shared_with.add(*users)
+        with transaction.atomic():  # 트랜잭션 적용 (데이터 정합성 보장)
+            users = User.objects.filter(id__in=user_ids)
+            web_link.shared_with.add(*users)
 
-        if write_permission:
-            web_link.write_permissions.add(*users)
+            if write_permission:
+                web_link.write_permissions.add(*users)
 
         return Response(
             {
@@ -104,11 +81,7 @@ def search_weblinks(request):
     weblinks = WebLink.objects.filter(created_by=request.user)
 
     if query:
-        weblinks = weblinks.filter(
-            Q(name__icontains=query)
-            | Q(url__icontains=query)
-            | Q(category__icontains=query)
-        )
+        weblinks = weblinks.filter(Q(name__icontains=query) | Q(url__icontains=query) | Q(category__icontains=query))
 
     serializer = WebLinkSerializer(weblinks, many=True)
     return Response(serializer.data)
@@ -120,7 +93,6 @@ def user_list(request):
     users = User.objects.all()
     serializer = UserSerializer(users, many=True)
     return Response(serializer.data)
-
 
 
 @csrf_exempt
@@ -143,9 +115,7 @@ def share_weblink(request, weblink_id):
             user = get_object_or_404(User, id=user_id)
 
             if user in weblink.shared_with.all():
-                return JsonResponse(
-                    {"message": "이미 공유된 사용자입니다."}, status=200
-                )
+                return JsonResponse({"message": "이미 공유된 사용자입니다."}, status=200)
 
             weblink.shared_with.add(user)
 
@@ -155,12 +125,12 @@ def share_weblink(request, weblink_id):
             return JsonResponse(
                 {
                     "message": "공유 성공!",
-                    "shared_with": list(
-                        weblink.shared_with.values("id", "username")
-                    ),
+                    "shared_with": list(weblink.shared_with.values("id", "username")),
                 },
+                safe=False,
                 status=200,
             )
+
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=500)
 
