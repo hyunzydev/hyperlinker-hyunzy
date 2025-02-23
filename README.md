@@ -62,7 +62,7 @@
 
 ## 📌 프로젝트 정보
 
-- **기술 스택**: python, Django, SQLite, JWT 인증
+- **기술 스택**: javaScript, python, Django, SQLite, JWT 인증
 - **주요 기능**: 링크 관리, 검색, 공유 및 권한 관리, JWT 및 구글 로그인
 - **개발 목표**: 보안이 강화된 웹 링크 저장 및 공유 플랫폼 제공
 
@@ -84,6 +84,18 @@ python manage.py runserver
 - `get_user_model()`을 사용하여 유연성을 확보하는 것이 중요
 - 마이그레이션과 데이터베이스 변경 시 충돌을 방지하기 위한 사전 점검 필요
 
+### 2️⃣ **Django WebLink API 성능 최적화 및 데이터 정합성 강화**
+Django REST Framework 기반으로 WebLink API를 구현하면서 성능 최적화 및 데이터 정합성 유지가 중요한 문제로 떠올랐습니다.
+
+#### 🔹 문제점
+- `get_queryset()`에서 `|` 연산자를 사용하여 **불필요한 중복 쿼리 실행**
+- `partial_update()`에서 **ManyToMany 관계를 전체 조회 (`all()`)** 하여 **비효율적인 쿼리 발생**
+- `web_link.shared_with.add(*users)` 실행 중 **일부 데이터만 저장되는 문제** 발생 가능  
+
+#### ✅ **해결 방법**
+1. **Q 객체 활용** → 중복 쿼리 제거 및 성능 최적화  
+   ```python
+   WebLink.objects.filter(Q(created_by=user) | Q(shared_with=user)).distinct()
 
 ### 🔹 느낀 점
 이 과정에서 Django의 ORM과 인증 시스템을 보다 깊이 이해하게 되었으며,
