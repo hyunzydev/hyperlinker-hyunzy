@@ -34,6 +34,14 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.contrib import messages
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.shortcuts import render, get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
+import json
+from weblinks.models import WebLink
+from django.contrib.auth import get_user_model
+
 
 class SignupView(CreateView):
     model = User
@@ -189,7 +197,7 @@ def google_callback(request):
 
     auth_login(request, user)
 
-    return redirect("accounts:profile")  # ✅ 로그인 후 자동 이동
+    return redirect("accounts:profile")
 
 
 
@@ -207,13 +215,7 @@ def logout(request):
     return redirect(google_logout_url)
 
 
-from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
-from django.shortcuts import render, get_object_or_404
-from django.views.decorators.csrf import csrf_exempt
-import json
-from weblinks.models import WebLink
-from django.contrib.auth import get_user_model
+
 
 User = get_user_model()
 

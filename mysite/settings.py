@@ -29,11 +29,10 @@ else:
     print("not found:", ENV_PATH, file=sys.stderr)
 
 
-# ✅ 구글 OAuth2 설정 (환경 변수에서 가져오기)
 GOOGLE_CLIENT_ID = env("GOOGLE_CLIENT_ID", default="")
 GOOGLE_CLIENT_SECRET = env("GOOGLE_CLIENT_SECRET", default="")
 GOOGLE_CALLBACK_URI = "http://127.0.0.1:8000/accounts/google/callback/"
-# ✅ Django 보안 설정
+
 SECRET_KEY = env(
     "SECRET_KEY",
     default="django-insecure-dn^kymsy5h(e&jtgba0r#jh1v6!9gao1e2#g!5#76b)5=dh2s)",
@@ -91,22 +90,22 @@ INSTALLED_APPS = [
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework.authentication.SessionAuthentication",  # 기본 Django 세션 인증
-        "rest_framework.authentication.TokenAuthentication",  # 토큰 기반 인증 (추가)
-        "rest_framework_simplejwt.authentication.JWTAuthentication",  # ✅ JWT 인증 추가
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
     "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.IsAuthenticated",  # 인증된 사용자만 접근 가능
+        "rest_framework.permissions.IsAuthenticated",
     ],
 }
 
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),  # ✅ 30분 유효
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),  # ✅ 7일 유효
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
     "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,
-    "AUTH_HEADER_TYPES": ("Bearer",),  # ✅ JWT 인증을 위한 'Bearer' 추가
+    "AUTH_HEADER_TYPES": ("Bearer",),
 }
 
 
@@ -115,7 +114,7 @@ if DEBUG:
         "debug_toolbar",
     ]
 
-LOGIN_URL = "accounts:login"  # ✅ 로그인하지 않은 사용자는 이 URL로 이동
+LOGIN_URL = "accounts:login"
 
 
 MIDDLEWARE = [
@@ -128,7 +127,6 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django_htmx.middleware.HtmxMiddleware",
     "corsheaders.middleware.CorsMiddleware",
-    #     구글
     "allauth.account.middleware.AccountMiddleware",
 ]
 
@@ -163,7 +161,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "mysite.wsgi.application"
 
-STATIC_ROOT = BASE_DIR / "staticfiles"  # 배포용 정적 파일 저장소
+STATIC_ROOT = BASE_DIR / "staticfiles"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
@@ -175,7 +173,7 @@ DATABASES = {
 }
 
 AUTHENTICATION_BACKENDS = [
-    "django.contrib.auth.backends.ModelBackend",  # Django 기본 인증 백엔드
+    "django.contrib.auth.backends.ModelBackend",
 ]
 
 
@@ -207,11 +205,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
 LANGUAGE_CODE = env.str("LANGUAGE_CODE", default="ko-kr")
-
 TIME_ZONE = "UTC"
-
 USE_I18N = True
-
 USE_TZ = True
 
 
@@ -219,7 +214,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
-
 STATICFILES_DIRS = [
     BASE_DIR / "core" / "src-django-components",
 ]
@@ -237,11 +231,9 @@ INTERNAL_IPS = env.list("INTERNAL_IPS", default=["127.0.0.1"])
 
 
 # django-crispy-forms
-
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
-
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
-ACCOUNT_EMAIL_REQUIRED = True  # email 필드 사용 o
-ACCOUNT_USERNAME_REQUIRED = True  # username 필드 사용 o
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = "email"
