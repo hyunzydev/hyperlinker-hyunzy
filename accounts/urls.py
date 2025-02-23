@@ -19,12 +19,10 @@ urlpatterns = [
     path(
         "token/refresh/", TokenRefreshView.as_view(), name="token_refresh"
     ),
-
     path(
         "logout/", logout, name="logout"
     ),
     path("profile/", views.profile, name="profile"),
-
     path("google/login/", google_login, name="google_login"),
     path("google/callback/", google_callback, name="google_callback"),
     path("search/", search_weblinks, name="search_weblinks"),

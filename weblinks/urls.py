@@ -10,5 +10,5 @@ router.register(r"weblinks", WebLinkViewSet, basename="weblink")
 router.register(r"users", UserViewSet, basename="user")
 
 urlpatterns = [
-    path("", include(router.urls)),  # ✅ DRF API 경로 추가
+    path("", include(router.urls)),
 ]
